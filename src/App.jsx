@@ -221,7 +221,15 @@ function Manuscript({ entries, glosses }) {
           <article key={e.id} style={{ padding: i === 0 ? '0 0 34px' : '34px 0', borderBottom: '1px solid rgba(27,31,42,0.15)' }}>
             <span style={{ fontSize: '0.78rem', color: '#5C6B5D', fontWeight: 600, marginBottom: 10, display: 'inline-block', padding: '3px 10px', border: '1px solid #5C6B5D', borderRadius: 20 }}>{e.label}</span>
             <h3 className="serif" style={{ fontSize: '1.4rem', fontWeight: 600, lineHeight: 1.6, margin: '12px 0' }}>{e.title}</h3>
+            {e.image_url && (
+              <img src={e.image_url} alt={e.title} style={{ maxWidth: '100%', borderRadius: 4, margin: '14px 0', display: 'block' }} />
+            )}
             <p style={{ fontSize: '1rem', lineHeight: 2, color: 'rgba(27,31,42,0.82)', maxWidth: 620 }}>{e.body}</p>
+            {e.video_url && (
+              <div style={{ margin: '18px 0', maxWidth: 620, aspectRatio: '16/9' }}>
+                <iframe src={e.video_url} allowFullScreen style={{ width: '100%', height: '100%', border: 'none', borderRadius: 4 }} title={e.title} />
+              </div>
+            )}
             <div style={{ marginTop: 16, fontSize: '0.85rem', color: '#5C6B5D', display: 'flex', gap: 16 }}>
               <span>{e.minutes} دقیقه خواندن</span>
               <span>{e.comments} نظر</span>
@@ -364,12 +372,40 @@ const btnPrimary = { background: '#1B1F2A', color: '#EDE7D9', border: 'none', pa
 const btnDanger = { background: 'transparent', color: '#9C5A48', border: '1px solid #9C5A48', padding: '7px 14px', fontSize: '0.8rem' };
 const cardStyle = { border: '1px solid rgba(27,31,42,0.15)', padding: 16, marginBottom: 14, background: 'rgba(255,255,255,0.3)' };
 
+async function uploadEntryImage(file) {
+  const ext = file.name.split('.').pop();
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const { error } = await supabase.storage.from('article-images').upload(path, file);
+  if (error) { alert('خطا در آپلود عکس: ' + error.message); return null; }
+  const { data } = supabase.storage.from('article-images').getPublicUrl(path);
+  return data?.publicUrl || null;
+}
+
+function ImageField({ value, onChange }) {
+  const [busy, setBusy] = useState(false);
+  const handleFile = async (file) => {
+    if (!file) return;
+    setBusy(true);
+    const url = await uploadEntryImage(file);
+    setBusy(false);
+    if (url) onChange(url);
+  };
+  return (
+    <div style={{ marginBottom: 10 }}>
+      <label style={{ fontSize: '0.78rem', color: '#5C6B5D', display: 'block', marginBottom: 4 }}>تصویر</label>
+      <input type="file" accept="image/*" onChange={e => handleFile(e.target.files?.[0])} style={{ fontSize: '0.82rem', marginBottom: 6 }} />
+      {busy && <div style={{ fontSize: '0.78rem', color: '#5C6B5D' }}>در حال آپلود…</div>}
+      {value && <img src={value} alt="" style={{ maxWidth: '100%', maxHeight: 140, display: 'block', marginTop: 6, borderRadius: 3 }} />}
+    </div>
+  );
+}
+
 function EntriesAdmin({ entries, addEntry, updateEntry, removeEntry }) {
-  const [draft, setDraft] = useState({ label: '', title: '', body: '', minutes: 5, comments: 0 });
+  const [draft, setDraft] = useState({ label: '', title: '', body: '', minutes: 5, comments: 0, image_url: '', video_url: '' });
   const add = () => {
     if (!draft.title.trim()) return;
     addEntry({ ...draft, minutes: Number(draft.minutes) || 5, comments: Number(draft.comments) || 0 });
-    setDraft({ label: '', title: '', body: '', minutes: 5, comments: 0 });
+    setDraft({ label: '', title: '', body: '', minutes: 5, comments: 0, image_url: '', video_url: '' });
   };
   return (
     <div>
@@ -382,6 +418,8 @@ function EntriesAdmin({ entries, addEntry, updateEntry, removeEntry }) {
           <input style={fieldStyle} type="number" placeholder="دقیقه" value={draft.minutes} onChange={e => setDraft({ ...draft, minutes: e.target.value })} />
           <input style={fieldStyle} type="number" placeholder="نظرات" value={draft.comments} onChange={e => setDraft({ ...draft, comments: e.target.value })} />
         </div>
+        <ImageField value={draft.image_url} onChange={url => setDraft(d => ({ ...d, image_url: url }))} />
+        <input style={fieldStyle} placeholder="لینک ویدئو (مثلا از آپارات)" value={draft.video_url} onChange={e => setDraft({ ...draft, video_url: e.target.value })} />
         <button style={btnPrimary} onClick={add}>افزودن یادداشت</button>
       </div>
       {entries.map(e => (
@@ -389,6 +427,8 @@ function EntriesAdmin({ entries, addEntry, updateEntry, removeEntry }) {
           <input style={fieldStyle} defaultValue={e.label} onBlur={ev => updateEntry(e.id, { label: ev.target.value })} />
           <input style={fieldStyle} defaultValue={e.title} onBlur={ev => updateEntry(e.id, { title: ev.target.value })} />
           <textarea style={{ ...fieldStyle, minHeight: 70 }} defaultValue={e.body} onBlur={ev => updateEntry(e.id, { body: ev.target.value })} />
+          <ImageField value={e.image_url} onChange={url => updateEntry(e.id, { image_url: url })} />
+          <input style={fieldStyle} placeholder="لینک ویدئو (مثلا از آپارات)" defaultValue={e.video_url} onBlur={ev => updateEntry(e.id, { video_url: ev.target.value })} />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', gap: 8, fontSize: '0.8rem', color: '#5C6B5D' }}>
               <span>{e.minutes} دقیقه</span><span>{e.comments} نظر</span>
