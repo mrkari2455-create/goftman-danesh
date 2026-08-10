@@ -16,6 +16,16 @@ const CATEGORIES = [
 // رمز ادمین - این را با رمز واقعی خودتان جایگزین کنید
 const ADMIN_PASSWORD = '1234';
 
+// تبدیل لینک عادی آپارات به لینک embed
+function getAparatEmbedUrl(url) {
+  if (!url) return null;
+  const match = url.match(/aparat\.com\/v\/([a-zA-Z0-9]+)/);
+  if (match) {
+    return `https://www.aparat.com/video/video/embed/videohash/${match[1]}/vt/frame`;
+  }
+  return null;
+}
+
 function App() {
   const [entries, setEntries] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -223,7 +233,7 @@ function App() {
           )}
           <input
             type="text"
-            placeholder="لینک ویدیو (اختیاری)"
+            placeholder="لینک آپارات (مثل https://www.aparat.com/v/xxxxxxx)"
             value={form.video_url}
             onChange={(e) => setForm({ ...form, video_url: e.target.value })}
           />
@@ -252,8 +262,16 @@ function App() {
             {entry.image_url && (
               <img src={entry.image_url} alt={entry.title} className="entry-img" />
             )}
-            {entry.video_url && (
-              <video src={entry.video_url} controls className="entry-video" />
+            {entry.video_url && getAparatEmbedUrl(entry.video_url) && (
+              <div className="video-wrapper">
+                <iframe
+                  src={getAparatEmbedUrl(entry.video_url)}
+                  className="entry-video"
+                  allowFullScreen
+                  frameBorder="0"
+                  title={entry.title}
+                ></iframe>
+              </div>
             )}
             <p>{entry.content}</p>
             {isAdmin && (
