@@ -218,3 +218,142 @@ body {
   cursor: pointer;
   font-size: 0.85rem;
 }
+/* ===== اضافات جدید: رنگ‌بندی دسته‌ها، زمان مطالعه، اشتراک‌گذاری، مقالات مرتبط ===== */
+
+/* رنگ‌بندی دسته‌ها */
+.cat-engineering {
+  --cat-color: #2e7d32; /* سبز - مهندسی */
+}
+.cat-basic {
+  --cat-color: #1565c0; /* آبی - علوم پایه */
+}
+.cat-medical {
+  --cat-color: #c62828; /* قرمز - پزشکی */
+}
+
+/* تب‌های دسته‌بندی با رنگ مخصوص هر دسته */
+.category-tabs .tab.cat-engineering.active {
+  background-color: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+.category-tabs .tab.cat-basic.active {
+  background-color: #1565c0;
+  color: #fff;
+  border-color: #1565c0;
+}
+.category-tabs .tab.cat-medical.active {
+  background-color: #c62828;
+  color: #fff;
+  border-color: #c62828;
+}
+
+/* نوار رنگی سمت راست هر کارت مقاله، متناسب با دسته‌اش */
+.entry-card {
+  border-right: 5px solid var(--cat-color, #999);
+  padding-right: 16px;
+}
+
+/* بج دسته‌بندی داخل کارت با رنگ مخصوص */
+.entry-card.cat-engineering .entry-category {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+.entry-card.cat-basic .entry-category {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+.entry-card.cat-medical .entry-category {
+  background-color: #fce4e4;
+  color: #c62828;
+}
+
+.entry-category {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* ردیف بالای کارت: دسته + زمان مطالعه */
+.entry-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.entry-reading-time {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* خلاصه مقاله زیر تیتر */
+.entry-excerpt {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+/* دکمه‌های اشتراک‌گذاری */
+.share-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 0.2s;
+}
+
+.share-btn:hover {
+  opacity: 0.85;
+}
+
+.share-telegram {
+  background-color: #229ed9;
+}
+
+.share-whatsapp {
+  background-color: #25d366;
+}
+
+/* بخش مقالات مرتبط */
+.related-articles {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed #ddd;
+}
+
+.related-articles h4 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.related-articles ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.related-articles li {
+  padding: 6px 0;
+  color: var(--cat-color, #555);
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.related-articles li:last-child {
+  border-bottom: none;
+}
