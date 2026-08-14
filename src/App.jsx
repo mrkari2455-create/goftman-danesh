@@ -45,3 +45,70 @@ function getShareLinks(title, url) {
     whatsapp: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
   };
 }
+
+function App() {
+  const [entries, setEntries] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [loading, setLoading] = useState(true);
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  const [form, setForm] = useState({
+    id: null,
+    title: '',
+    content: '',
+    category: 'engineering',
+    image_url: '',
+    video_url: '',
+  });
+  const [imageFile, setImageFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
+  async function fetchEntries() {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('entries')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (!error) setEntries(data || []);
+    setLoading(false);
+  }
+
+  const filteredEntries =
+    activeCategory === 'all'
+      ? entries
+      : entries.filter((e) => e.category === activeCategory);
+
+  function handleAdminLogin() {
+    if (passwordInput === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      setShowLogin(false);
+      setLoginError('');
+      setPasswordInput('');
+    } else {
+      setLoginError('رمز اشتباه است');
+    }
+  }
+
+  async function handleImageUpload(file) {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const { error } = await supabase.storage
+      .from('article-images')
+      .upload(fileName, file);
+    if (error) {
+      alert('خطا در آپلود عکس: ' + error.message);
+      return null;
+    }
+    const { data } = supabase.storage
+      .from('article-images')
+      .getPublicUrl(fileName);
+    return data.publicUrl;
+  }
