@@ -357,3 +357,62 @@ body {
 .related-articles li:last-child {
   border-bottom: none;
 }
+
+(extra-styles.css)
+/* این استایل‌ها رو به آخر فایل App.css اضافه کن */
+
+.entry-title-link {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.entry-title-link:hover {
+  color: #2b6cb0;
+  text-decoration: underline;
+}
+
+.related-link {
+  cursor: pointer;
+  color: #2b6cb0;
+}
+.related-link:hover {
+  text-decoration: underline;
+}
+
+.back-to-list {
+  margin: 16px 0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #edf2f7;
+  cursor: pointer;
+  font-size: 14px;
+}
+.back-to-list:hover {
+  background: #e2e8f0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.pagination .page-btn.active {
+  background: #2b6cb0;
+  color: #fff;
+  border-color: #2b6cb0;
+}
