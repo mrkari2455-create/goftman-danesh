@@ -7,10 +7,10 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const CATEGORIES = [
-  { key: 'all', label: 'ظ‡ظ…ظ‡' },
-  { key: 'engineering', label: 'ط¹ظ„ظˆظ… ظ…ظ‡ظ†ط¯ط³غŒ' },
-  { key: 'basic', label: 'ط¹ظ„ظˆظ… ظ¾ط§غŒظ‡' },
-  { key: 'medical', label: 'ط¹ظ„ظˆظ… ظ¾ط²ط´ع©غŒ' },
+  { key: 'all', label: 'همه' },
+  { key: 'engineering', label: 'علوم مهندسی' },
+  { key: 'basic', label: 'علوم پایه' },
+  { key: 'medical', label: 'علوم پزشکی' },
 ];
 
 const ADMIN_PASSWORD = '1234';
@@ -35,7 +35,7 @@ function getReadingTime(text) {
 function getExcerpt(text, maxLength = 120) {
   if (!text) return '';
   if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength).trim() + 'â€¦';
+  return text.slice(0, maxLength).trim() + '…';
 }
 
 function getShareLinks(title, url) {
@@ -123,7 +123,7 @@ function App() {
       setLoginError('');
       setPasswordInput('');
     } else {
-      setLoginError('ط±ظ…ط² ط§ط´طھط¨ط§ظ‡ ط§ط³طھ');
+      setLoginError('رمز اشتباه است');
     }
   }
 
@@ -134,7 +134,7 @@ function App() {
       .from('article-images')
       .upload(fileName, file);
     if (error) {
-      alert('ط®ط·ط§ ط¯ط± ط¢ظ¾ظ„ظˆط¯ ط¹ع©ط³: ' + error.message);
+      alert('خطا در آپلود عکس: ' + error.message);
       return null;
     }
     const { data } = supabase.storage
@@ -169,7 +169,7 @@ function App() {
     }
 
     if (error) {
-      alert('ط®ط·ط§: ' + error.message);
+      alert('خطا: ' + error.message);
     } else {
       resetForm();
       fetchEntries();
@@ -187,277 +187,4 @@ function App() {
       id: entry.id,
       title: entry.title || '',
       content: entry.content || '',
-      category: entry.category || 'engineering',
-      image_url: entry.image_url || '',
-      video_url: entry.video_url || '',
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  async function handleDelete(id) {
-    if (!confirm('ط§غŒظ† ظ…ط·ظ„ط¨ ط­ط°ظپ ط´ظˆط¯طں')) return;
-    const { error } = await supabase.from('entries').delete().eq('id', id);
-    if (error) alert('ط®ط·ط§ ط¯ط± ط­ط°ظپ: ' + error.message);
-    else {
-      if (selectedEntryId === id) setSelectedEntryId(null);
-      fetchEntries();
-    }
-  }
-
-  function renderEntryCard(entry, isFullView) {
-    const readingTime = getReadingTime(entry.content);
-    const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
-    const shareLinks = getShareLinks(entry.title, pageUrl);
-
-    const relatedEntries = entries
-      .filter((e) => e.category === entry.category && e.id !== entry.id)
-      .slice(0, 3);
-
-    return (
-      <article key={entry.id} className={`entry-card cat-${entry.category}`}>
-        <div className="entry-meta">
-          <span className="entry-category">
-            {CATEGORIES.find((c) => c.key === entry.category)?.label || entry.category}
-          </span>
-          <span className="entry-reading-time">âڈ± {readingTime} ط¯ظ‚غŒظ‚ظ‡ ظ…ط·ط§ظ„ط¹ظ‡</span>
-        </div>
-
-        {isFullView ? (
-          <h2>{entry.title}</h2>
-        ) : (
-          <h3
-            className="entry-title-link"
-            onClick={() => openEntry(entry.id)}
-            role="button"
-            tabIndex={0}
-          >
-            {entry.title}
-          </h3>
-        )}
-
-        {!isFullView && <p className="entry-excerpt">{getExcerpt(entry.content)}</p>}
-
-        {entry.image_url && (
-          <img src={entry.image_url} alt={entry.title} className="entry-img" />
-        )}
-        {entry.video_url && getAparatEmbedUrl(entry.video_url) && (
-          <div className="video-wrapper">
-            <iframe
-              src={getAparatEmbedUrl(entry.video_url)}
-              className="entry-video"
-              allowFullScreen
-              frameBorder="0"
-              title={entry.title}
-            ></iframe>
-          </div>
-        )}
-
-        {isFullView && <p>{entry.content}</p>}
-
-        <div className="share-buttons">
-          <a
-            href={shareLinks.telegram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="share-btn share-telegram"
-          >
-            ط§ط´طھط±ط§ع© ط¯ط± طھظ„ع¯ط±ط§ظ…
-          </a>
-          <a
-            href={shareLinks.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="share-btn share-whatsapp"
-          >
-            ط§ط´طھط±ط§ع© ط¯ط± ظˆط§طھط³ط§ظ¾
-          </a>
-        </div>
-
-        {isFullView && relatedEntries.length > 0 && (
-          <div className="related-articles">
-            <h4>ظ…ظ‚ط§ظ„ط§طھ ظ…ط±طھط¨ط·</h4>
-            <ul>
-              {relatedEntries.map((rel) => (
-                <li
-                  key={rel.id}
-                  className="related-link"
-                  onClick={() => openEntry(rel.id)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  {rel.title}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {isFullView && (
-          <button className="back-to-list" onClick={closeEntry}>
-            â†گ ط¨ط§ط²ع¯ط´طھ ط¨ظ‡ ظپظ‡ط±ط³طھ ظ…ط·ط§ظ„ط¨
-          </button>
-        )}
-
-        {isAdmin && (
-          <div className="entry-actions">
-            <button onClick={() => startEdit(entry)}>ظˆغŒط±ط§غŒط´</button>
-            <button onClick={() => handleDelete(entry.id)}>ط­ط°ظپ</button>
-          </div>
-        )}
-      </article>
-    );
-  }
-
-  const selectedEntry = selectedEntryId
-    ? entries.find((e) => e.id === selectedEntryId)
-    : null;
-
-  return (
-    <div className="app" dir="rtl">
-      <header className="site-header">
-        <h1>ع¯ظپطھظ…ط§ظ† ط¯ط§ظ†ط´</h1>
-        {!isAdmin && (
-          <button className="admin-link" onClick={() => setShowLogin(true)}>
-            ظˆط±ظˆط¯ ظ…ط¯غŒط±
-          </button>
-        )}
-        {isAdmin && (
-          <button className="admin-link" onClick={() => setIsAdmin(false)}>
-            ط®ط±ظˆط¬ ط§ط² ظ¾ظ†ظ„ ظ…ط¯غŒط±غŒطھ
-          </button>
-        )}
-      </header>
-
-      {showLogin && !isAdmin && (
-        <div className="login-box">
-          <input
-            type="password"
-            placeholder="ط±ظ…ط² ط¹ط¨ظˆط±"
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
-          />
-          <button onClick={handleAdminLogin}>ظˆط±ظˆط¯</button>
-          <button onClick={() => setShowLogin(false)}>ط§ظ†طµط±ط§ظپ</button>
-          {loginError && <p className="error">{loginError}</p>}
-        </div>
-      )}
-
-      {!selectedEntry && (
-        <nav className="category-tabs">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.key}
-              className={
-                activeCategory === cat.key
-                  ? `tab active cat-${cat.key}`
-                  : `tab cat-${cat.key}`
-              }
-              onClick={() => goToCategory(cat.key)}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </nav>
-      )}
-
-      {isAdmin && (
-        <form className="entry-form" onSubmit={handleSubmit}>
-          <h2>{form.id ? 'ظˆغŒط±ط§غŒط´ ظ…ط·ظ„ط¨' : 'ظ…ط·ظ„ط¨ ط¬ط¯غŒط¯'}</h2>
-          <input
-            type="text"
-            placeholder="ط¹ظ†ظˆط§ظ†"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            required
-          />
-          <select
-            value={form.category}
-            onChange={(e) => setForm({ ...form, category: e.target.value })}
-          >
-            {CATEGORIES.filter((c) => c.key !== 'all').map((c) => (
-              <option key={c.key} value={c.key}>
-                {c.label}
-              </option>
-            ))}
-          </select>
-          <textarea
-            placeholder="ظ…طھظ† ظ…ط·ظ„ط¨"
-            value={form.content}
-            onChange={(e) => setForm({ ...form, content: e.target.value })}
-            rows={6}
-            required
-          />
-          <label>
-            طھطµظˆغŒط±:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
-            />
-          </label>
-          {form.image_url && !imageFile && (
-            <img src={form.image_url} alt="preview" className="preview-img" />
-          )}
-          <input
-            type="text"
-            placeholder="ظ„غŒظ†ع© ط¢ظ¾ط§ط±ط§طھ (ظ…ط«ظ„ https://www.aparat.com/v/xxxxxxx)"
-            value={form.video_url}
-            onChange={(e) => setForm({ ...form, video_url: e.target.value })}
-          />
-          <div className="form-actions">
-            <button type="submit" disabled={uploading}>
-              {uploading ? 'ط¯ط± ط­ط§ظ„ ط°ط®غŒط±ظ‡...' : form.id ? 'ط¨ظ‡â€Œط±ظˆط²ط±ط³ط§ظ†غŒ' : 'ط§ظ†طھط´ط§ط±'}
-            </button>
-            {form.id && (
-              <button type="button" onClick={resetForm}>
-                ظ„ط؛ظˆ ظˆغŒط±ط§غŒط´
-              </button>
-            )}
-          </div>
-        </form>
-      )}
-
-      <main className="entries-list">
-        {loading && <p>ط¯ط± ط­ط§ظ„ ط¨ط§ط±ع¯ط°ط§ط±غŒ...</p>}
-
-        {!loading && selectedEntry && renderEntryCard(selectedEntry, true)}
-
-        {!loading && !selectedEntry && filteredEntries.length === 0 && (
-          <p>ظ…ط·ظ„ط¨غŒ ط¯ط± ط§غŒظ† ط¯ط³طھظ‡ غŒط§ظپطھ ظ†ط´ط¯.</p>
-        )}
-
-        {!loading &&
-          !selectedEntry &&
-          pagedEntries.map((entry) => renderEntryCard(entry, false))}
-
-        {!loading && !selectedEntry && totalPages > 1 && (
-          <div className="pagination">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => goToPage(currentPage - 1)}
-            >
-              ظ‚ط¨ظ„غŒ
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                className={page === currentPage ? 'page-btn active' : 'page-btn'}
-                onClick={() => goToPage(page)}
-              >
-                {page}
-              </button>
-            ))}
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => goToPage(currentPage + 1)}
-            >
-              ط¨ط¹ط¯غŒ
-            </button>
-          </div>
-        )}
-      </main>
-    </div>
-  );
-}
-
-export default App;
+      category: entry.category
