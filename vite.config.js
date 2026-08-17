@@ -1,4 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-base: '/goftman-danesh/',
+export default defineConfig({
+  base: '/goftman-danesh/',
+  plugins: [react()],
+});
