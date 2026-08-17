@@ -187,4 +187,277 @@ function App() {
       id: entry.id,
       title: entry.title || '',
       content: entry.content || '',
-      category: entry.category
+      category: entry.category || 'engineering',
+      image_url: entry.image_url || '',
+      video_url: entry.video_url || '',
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function handleDelete(id) {
+    if (!confirm('این مطلب حذف شود؟')) return;
+    const { error } = await supabase.from('entries').delete().eq('id', id);
+    if (error) alert('خطا در حذف: ' + error.message);
+    else {
+      if (selectedEntryId === id) setSelectedEntryId(null);
+      fetchEntries();
+    }
+  }
+
+  function renderEntryCard(entry, isFullView) {
+    const readingTime = getReadingTime(entry.content);
+    const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+    const shareLinks = getShareLinks(entry.title, pageUrl);
+
+    const relatedEntries = entries
+      .filter((e) => e.category === entry.category && e.id !== entry.id)
+      .slice(0, 3);
+
+    return (
+      <article key={entry.id} className={`entry-card cat-${entry.category}`}>
+        <div className="entry-meta">
+          <span className="entry-category">
+            {CATEGORIES.find((c) => c.key === entry.category)?.label || entry.category}
+          </span>
+          <span className="entry-reading-time">⏱ {readingTime} دقیقه مطالعه</span>
+        </div>
+
+        {isFullView ? (
+          <h2>{entry.title}</h2>
+        ) : (
+          <h3
+            className="entry-title-link"
+            onClick={() => openEntry(entry.id)}
+            role="button"
+            tabIndex={0}
+          >
+            {entry.title}
+          </h3>
+        )}
+
+        {!isFullView && <p className="entry-excerpt">{getExcerpt(entry.content)}</p>}
+
+        {entry.image_url && (
+          <img src={entry.image_url} alt={entry.title} className="entry-img" />
+        )}
+        {entry.video_url && getAparatEmbedUrl(entry.video_url) && (
+          <div className="video-wrapper">
+            <iframe
+              src={getAparatEmbedUrl(entry.video_url)}
+              className="entry-video"
+              allowFullScreen
+              frameBorder="0"
+              title={entry.title}
+            ></iframe>
+          </div>
+        )}
+
+        {isFullView && <p>{entry.content}</p>}
+
+        <div className="share-buttons">
+          <a
+            href={shareLinks.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="share-btn share-telegram"
+          >
+            اشتراک در تلگرام
+          </a>
+          <a
+            href={shareLinks.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="share-btn share-whatsapp"
+          >
+            اشتراک در واتساپ
+          </a>
+        </div>
+
+        {isFullView && relatedEntries.length > 0 && (
+          <div className="related-articles">
+            <h4>مقالات مرتبط</h4>
+            <ul>
+              {relatedEntries.map((rel) => (
+                <li
+                  key={rel.id}
+                  className="related-link"
+                  onClick={() => openEntry(rel.id)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {rel.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {isFullView && (
+          <button className="back-to-list" onClick={closeEntry}>
+            ← بازگشت به فهرست مطالب
+          </button>
+        )}
+
+        {isAdmin && (
+          <div className="entry-actions">
+            <button onClick={() => startEdit(entry)}>ویرایش</button>
+            <button onClick={() => handleDelete(entry.id)}>حذف</button>
+          </div>
+        )}
+      </article>
+    );
+  }
+
+  const selectedEntry = selectedEntryId
+    ? entries.find((e) => e.id === selectedEntryId)
+    : null;
+
+  return (
+    <div className="app" dir="rtl">
+      <header className="site-header">
+        <h1>گفتمان دانش</h1>
+        {!isAdmin && (
+          <button className="admin-link" onClick={() => setShowLogin(true)}>
+            ورود مدیر
+          </button>
+        )}
+        {isAdmin && (
+          <button className="admin-link" onClick={() => setIsAdmin(false)}>
+            خروج از پنل مدیریت
+          </button>
+        )}
+      </header>
+
+      {showLogin && !isAdmin && (
+        <div className="login-box">
+          <input
+            type="password"
+            placeholder="رمز عبور"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+          />
+          <button onClick={handleAdminLogin}>ورود</button>
+          <button onClick={() => setShowLogin(false)}>انصراف</button>
+          {loginError && <p className="error">{loginError}</p>}
+        </div>
+      )}
+
+      {!selectedEntry && (
+        <nav className="category-tabs">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.key}
+              className={
+                activeCategory === cat.key
+                  ? `tab active cat-${cat.key}`
+                  : `tab cat-${cat.key}`
+              }
+              onClick={() => goToCategory(cat.key)}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </nav>
+      )}
+
+      {isAdmin && (
+        <form className="entry-form" onSubmit={handleSubmit}>
+          <h2>{form.id ? 'ویرایش مطلب' : 'مطلب جدید'}</h2>
+          <input
+            type="text"
+            placeholder="عنوان"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            required
+          />
+          <select
+            value={form.category}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+          >
+            {CATEGORIES.filter((c) => c.key !== 'all').map((c) => (
+              <option key={c.key} value={c.key}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+          <textarea
+            placeholder="متن مطلب"
+            value={form.content}
+            onChange={(e) => setForm({ ...form, content: e.target.value })}
+            rows={6}
+            required
+          />
+          <label>
+            تصویر:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+            />
+          </label>
+          {form.image_url && !imageFile && (
+            <img src={form.image_url} alt="preview" className="preview-img" />
+          )}
+          <input
+            type="text"
+            placeholder="لینک آپارات (مثل https://www.aparat.com/v/xxxxxxx)"
+            value={form.video_url}
+            onChange={(e) => setForm({ ...form, video_url: e.target.value })}
+          />
+          <div className="form-actions">
+            <button type="submit" disabled={uploading}>
+              {uploading ? 'در حال ذخیره...' : form.id ? 'به‌روزرسانی' : 'انتشار'}
+            </button>
+            {form.id && (
+              <button type="button" onClick={resetForm}>
+                لغو ویرایش
+              </button>
+            )}
+          </div>
+        </form>
+      )}
+
+      <main className="entries-list">
+        {loading && <p>در حال بارگذاری...</p>}
+
+        {!loading && selectedEntry && renderEntryCard(selectedEntry, true)}
+
+        {!loading && !selectedEntry && filteredEntries.length === 0 && (
+          <p>مطلبی در این دسته یافت نشد.</p>
+        )}
+
+        {!loading &&
+          !selectedEntry &&
+          pagedEntries.map((entry) => renderEntryCard(entry, false))}
+
+        {!loading && !selectedEntry && totalPages > 1 && (
+          <div className="pagination">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => goToPage(currentPage - 1)}
+            >
+              قبلی
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                className={page === currentPage ? 'page-btn active' : 'page-btn'}
+                onClick={() => goToPage(page)}
+              >
+                {page}
+              </button>
+            ))}
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => goToPage(currentPage + 1)}
+            >
+              بعدی
+            </button>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
+
+export default App;
