@@ -28,6 +28,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        - name: Generate sitemap
+        run: node scripts/generate-sitemap.mjs
 
       - name: Build
         run: npm run build
