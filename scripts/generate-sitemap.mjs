@@ -5,7 +5,7 @@ const SUPABASE_KEY = 'sb_publishable_PIR-ZRc9XZ0iPhQExY_ubg_Re0HQkDt';
 const SITE_URL = 'https://mrkari2455-create.github.io/goftman-danesh';
 
 async function generateSitemap() {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/entries?select=label`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/entries?select=idl`, {
     headers: {
       apikey: SUPABASE_KEY,
       Authorization: `Bearer ${SUPABASE_KEY}`,
@@ -17,7 +17,7 @@ async function generateSitemap() {
     `<url><loc>${SITE_URL}/</loc><priority>1.0</priority></url>`,
     ...entries.map(
       (e) =>
-        `<url><loc>${SITE_URL}/article/${encodeURIComponent(e.label)}</loc><priority>0.8</priority></url>`
+        `<url><loc>${SITE_URL}/article/${encodeURIComponent(e.id)}</loc><priority>0.8</priority></url>`
     ),
   ];
 
