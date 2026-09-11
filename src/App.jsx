@@ -15,6 +15,12 @@ const CATEGORIES = [
 
 const ADMIN_PASSWORD = '1234';
 const PAGE_SIZE = 6;
+const BASE_PATH = '/goftman-danesh';
+
+function getIdFromPath() {
+  const match = window.location.pathname.match(/\/article\/([a-zA-Z0-9-]+)/);
+  return match ? match[1] : null;
+}
 
 function getAparatEmbedUrl(url) {
   if (!url) return null;
@@ -52,7 +58,7 @@ function App() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedEntryId, setSelectedEntryId] = useState(null);
+  const [selectedEntryId, setSelectedEntryId] = useState(getIdFromPath());
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -72,6 +78,14 @@ function App() {
 
   useEffect(() => {
     fetchEntries();
+  }, []);
+
+  useEffect(() => {
+    function handlePopState() {
+      setSelectedEntryId(getIdFromPath());
+    }
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   async function fetchEntries() {
@@ -103,11 +117,13 @@ function App() {
 
   function openEntry(id) {
     setSelectedEntryId(id);
+    window.history.pushState({}, '', `${BASE_PATH}/article/${id}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function closeEntry() {
     setSelectedEntryId(null);
+    window.history.pushState({}, '', `${BASE_PATH}/`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
