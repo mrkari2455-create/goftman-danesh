@@ -1,0 +1,178 @@
+.services-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.services-hero {
+  background: #fffdf8;
+  border: 1px solid #d8cdb0;
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.services-hero h2 {
+  color: #5b4636;
+  font-size: 1.4rem;
+  margin: 0 0 12px;
+}
+
+.services-hero p {
+  color: #444;
+  line-height: 1.8;
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+}
+
+.services-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cta-btn {
+  padding: 10px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.cta-primary {
+  background: #8a6d4b;
+  color: #fff;
+}
+
+.cta-secondary {
+  background: #e9e2d0;
+  color: #5b4636;
+}
+
+.services-list-section,
+.services-price-section,
+.services-how-section,
+.services-portfolio-section,
+.services-contact-section {
+  background: #fffdf8;
+  border: 1px solid #d8cdb0;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.services-list-section h3,
+.services-price-section h3,
+.services-how-section h3,
+.services-portfolio-section h3,
+.services-contact-section h3 {
+  color: #5b4636;
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.services-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.services-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #2b2620;
+}
+
+.check-icon {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.price-tag {
+  font-size: 1.05rem;
+  color: #2b2620;
+  margin: 0;
+}
+
+.price-amount {
+  color: #8a6d4b;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.steps-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #8a6d4b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.steps-list strong {
+  display: block;
+  color: #5b4636;
+  margin-bottom: 4px;
+}
+
+.steps-list p {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.portfolio-card {
+  background: #f4efe4;
+  border: 1px solid #d8cdb0;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.portfolio-card h4 {
+  margin: 8px 0 0;
+  color: #2b2620;
+  font-size: 1rem;
+}
+
+.services-contact-section p {
+  color: #555;
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
