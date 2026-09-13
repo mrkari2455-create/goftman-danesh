@@ -1,9 +1,8 @@
 import './ServicesContentPage.css';
 
 // ⚠️ مقادیر موقت — قبل از انتشار نهایی این دو مقدار رو با اطلاعات واقعی جایگزین کن
-const CONTACT_TELEGRAM_ID = 'PLACEHOLDER_TELEGRAM_ID';
-const CONTACT_WHATSAPP_NUMBER = 'PLACEHOLDER_WHATSAPP_NUMBER';
-
+const CONTACT_TELEGRAM_ID = 'hoosein3515';
+const CONTACT_WHATSAPP_NUMBER = '989178241874';
 const SERVICES = [
   'مقاله اختصاصی',
   'عنوان و تیترهای مناسب',
