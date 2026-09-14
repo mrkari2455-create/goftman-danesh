@@ -1,17 +1,8 @@
 import './ServicesContentPage.css';
 
 const BASE_PATH = '/goftman-danesh';
-
-// ⚠️ temporary values, later replace
 const CONTACT_TELEGRAM_ID = 'hoosein3515';
-
-const BASE_PATH = '/goftman-danesh';
-
-// ⚠️ temporary values, later replace
-const CONTACT_TELEGRAM_ID = 'hoosein3515';
-
-// ⚠️ مقادیر موقت — قبل از انتشار نهایی این دو مقدار رو با اطلاعات واقعی جایگزین کن
-const CONTACT_TELEGRAM_ID = 'hoosein3515';
+const CONTACT_WHATSAPP_NUMBER = '989178241874';
 const CONTACT_WHATSAPP_NUMBER = '989178241874';
 const SERVICES = [
   'مقاله اختصاصی',
