@@ -3,7 +3,7 @@ import './ServicesContentPage.css';
 const BASE_PATH = '/goftman-danesh';
 const CONTACT_TELEGRAM_ID = 'hoosein3515';
 const CONTACT_WHATSAPP_NUMBER = '989178241874';
-const CONTACT_WHATSAPP_NUMBER = '989178241874';
+
 const SERVICES = [
   'مقاله اختصاصی',
   'عنوان و تیترهای مناسب',
