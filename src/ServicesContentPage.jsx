@@ -93,9 +93,24 @@ function ServicesContentPage({ onBack }) {
 
       <section id="services-portfolio" className="services-portfolio-section">
         <h3>نمونه‌کارها</h3>
-        <div className="portfolio-grid">
-          {PORTFOLIO_SAMPLES.map((sample) => (
-            <div key={sample.title} className="portfolio-card">
+        <div className="portfolio-grid
+        {PORTFOLIO_SAMPLES.map((sample) => (
+  <div
+    key={sample.title}
+    className="portfolio-card"
+    onClick={() => {
+      if (sample.id) {
+        window.history.pushState({}, '', `${BASE_PATH}/article/${sample.id}`);
+        window.dispatchEvent(new PopStateEvent('popstate'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }}
+    style={{ cursor: sample.id ? 'pointer' : 'default' }}
+  >
+    <span className="entry-category">{sample.category}</span>
+    <h4>{sample.title}</h4>
+  </div>
+))}  
               <span className="entry-category">{sample.category}</span>
               <h4>{sample.title}</h4>
             </div>
