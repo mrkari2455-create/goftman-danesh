@@ -1,4 +1,4 @@
-import './ServicesContentPage.css';
+قimport './ServicesContentPage.css';
 
 const BASE_PATH = '/goftman-danesh';
 
@@ -123,7 +123,7 @@ export default function ServicesContentPage({ onBack }) {
         </div>
       </section>
 <h3>
-  مقاله اختصاصی ۱۰۰۰ کلمه‌ای
+  مقاله ۱۰۰۰ کلمه‌ای
 </h3>
 
 <div className="price">
@@ -131,11 +131,15 @@ export default function ServicesContentPage({ onBack }) {
 </div>
 
 <p>
-  یک مقاله آماده انتشار برای سایت شما؛
-  شامل عنوان و تیترهای مناسب، مقدمه، بدنه مقاله،
-  جمع‌بندی، ویرایش و اصول پایه سئو.
+  شامل عنوان، تیترهای مناسب، مقدمه،
+  بدنه مقاله، جمع‌بندی، ویرایش و اصول پایه سئو.
 </p>
-
+<p>
+  شامل عنوان، تیترهای مناسب، مقدمه،
+  بدنه مقاله، جمع‌بندی، ویرایش و اصول پایه سئو.
+<
+  مقاله ۱۰۰۰ کلمه‌ای
+</h3llllll) 
 <p>
   ✨ تولید با کمک هوش مصنوعی + ویرایش و بازبینی انسانی
 </p>
