@@ -1,4 +1,4 @@
-قimport './ServicesContentPage.css';
+import './ServicesContentPage.css';
 
 const BASE_PATH = '/goftman-danesh';
 
