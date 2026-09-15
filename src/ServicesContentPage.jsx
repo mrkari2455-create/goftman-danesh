@@ -122,7 +122,23 @@ export default function ServicesContentPage({ onBack }) {
           </button>
         </div>
       </section>
+<h3>
+  مقاله اختصاصی ۱۰۰۰ کلمه‌ای
+</h3>
 
+<div className="price">
+  ۱۵۰ هزار تومان
+</div>
+
+<p>
+  یک مقاله آماده انتشار برای سایت شما؛
+  شامل عنوان و تیترهای مناسب، مقدمه، بدنه مقاله،
+  جمع‌بندی، ویرایش و اصول پایه سئو.
+</p>
+
+<p>
+  ✨ تولید با کمک هوش مصنوعی + ویرایش و بازبینی انسانی
+</p>
       <section className="services-section">
         <h3>چه خدماتی ارائه می‌دهیم؟</h3>
 
@@ -145,17 +161,7 @@ export default function ServicesContentPage({ onBack }) {
         </span>
 
         <h3>
-          مقاله ۱۰۰۰ کلمه‌ای
-        </h3>
-
-        <div className="price">
-          ۱۵۰ هزار تومان
-        </div>
-
-        <p>
-          شامل عنوان، تیترهای مناسب، مقدمه،
-          بدنه مقاله، جمع‌بندی، ویرایش و اصول پایه سئو.
-        </p>
+        
       </section>
 
       <section className="services-section">
