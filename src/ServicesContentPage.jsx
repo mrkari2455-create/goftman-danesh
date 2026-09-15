@@ -161,7 +161,13 @@ export default function ServicesContentPage({ onBack }) {
           بدنه مقاله، جمع‌بندی، ویرایش و اصول پایه سئو.
         </p>
       </section>
-
+      <div className="services-note">
+  <strong>🎯 مناسب برای سایت‌ها و کسب‌وکارهای اینترنتی</strong>
+  <p>
+    محتوایی منظم، روان و آماده انتشار دریافت می‌کنید؛
+    بدون نیاز به درگیری با مراحل نگارش و ویرایش.
+  </p>
+</div>
       <section className="services-section">
         <h3>روند انجام سفارش</h3>
 
