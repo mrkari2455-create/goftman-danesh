@@ -115,7 +115,7 @@ export default function ServicesContentPage({ onBack }) {
             className="share-btn share-telegram"
             onClick={goToContact}
           >
-            ثبت سفارش
+            ثبت سفارش و مشاوره
           </button>
 
           <button
