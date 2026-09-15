@@ -95,15 +95,7 @@ export default function ServicesContentPage({ onBack }) {
         <span className="services-badge">
           خدمات تولید محتوا
         </span>
-<h2>
-  محتوای حرفه‌ای برای رشد سایت شما
-</h2>
-
-<p>
-  مقاله‌های اختصاصی و آماده انتشار،
-  با کمک هوش مصنوعی و ویرایش انسانی؛
-  از انتخاب عنوان و ساختار تا نگارش، ویرایش و اصول پایه سئو.
-</p>
+  , 
         <h2>
         
         <div className="services-cta">
