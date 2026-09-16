@@ -126,7 +126,36 @@ export default function ServicesContentPage({ onBack }) {
           </button>
         </div>
       </section>
+      <section className="services-section">
+  <h3>چرا گفتمان دانش؟</h3>
 
+  <div className="services-list">
+    <div className="service-item">
+      <span className="service-check">✓</span>
+      <span>محتوای اختصاصی متناسب با موضوع شما</span>
+    </div>
+
+    <div className="service-item">
+      <span className="service-check">✓</span>
+      <span>استفاده از هوش مصنوعی برای سرعت بیشتر در تولید</span>
+    </div>
+
+    <div className="service-item">
+      <span className="service-check">✓</span>
+      <span>ویرایش و بازبینی انسانی</span>
+    </div>
+
+    <div className="service-item">
+      <span className="service-check">✓</span>
+      <span>رعایت اصول پایه سئو</span>
+    </div>
+
+    <div className="service-item">
+      <span className="service-check">✓</span>
+      <span>تحویل محتوای آماده انتشار</span>
+    </div>
+  </div>
+</section>
       <section className="services-section">
         <h3>چه خدماتی ارائه می‌دهیم؟</h3>
 
