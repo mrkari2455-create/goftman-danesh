@@ -223,11 +223,14 @@ export default function ServicesContentPage({ onBack }) {
           ))}
         </div>
       </section>
+      <section className="services-section">
+  <h3>📦 تحویل نهایی</h3>
 
-      <section
-        id="services-portfolio"
-        className="services-portfolio-section"
-      >
+  <p>
+    مقاله نهایی پس از ویرایش و بازبینی،
+    به‌صورت فایل قابل ویرایش و آماده انتشار تحویل داده می‌شود.
+  </p>
+</section>
         <h3>نمونه‌کارها</h3>
 
         <p className="section-description">
