@@ -250,7 +250,7 @@ export default function ServicesContentPage({ onBack }) {
 
           <a
             className="share-btn share-whatsapp"
-            href={`https://wa.me/${CONTACT_WHATSAPP_NUMBER}`}
+            href={`https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(ORDER_MESSAGE)}`}
             target="_blank"
             rel="noopener noreferrer"
           >
