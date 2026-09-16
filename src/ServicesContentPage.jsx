@@ -4,7 +4,14 @@ const BASE_PATH = '/goftman-danesh';
 
 const CONTACT_TELEGRAM_ID = 'hoosein3515';
 const CONTACT_WHATSAPP_NUMBER = '989178241874';
+const ORDER_MESSAGE = `سلام، برای سفارش تولید محتوا پیام می‌دهم.
 
+موضوع مقاله:
+تعداد کلمات:
+موضوع یا حوزه سایت:
+زمان موردنیاز برای تحویل:
+توضیحات و نکات موردنظر:
+`;
 const SERVICES = [
   'مقاله اختصاصی',
   'عنوان و تیترهای مناسب',
