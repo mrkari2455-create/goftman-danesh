@@ -241,7 +241,7 @@ export default function ServicesContentPage({ onBack }) {
 
           <a
             className="share-btn share-telegram"
-            href={`https://t.me/${CONTACT_TELEGRAM_ID}`}
+            href={`https://t.me/${CONTACT_TELEGRAM_ID}?text=${encodeURIComponent(ORDER_MESSAGE)}`}
             target="_blank"
             rel="noopener noreferrer"
           >
