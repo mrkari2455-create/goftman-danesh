@@ -137,7 +137,7 @@ export default function ServicesContentPage({ onBack }) {
       </section>
       <section className="services-section">
   <h3>چرا گفتمان دانش؟</h3>
-<section className="services-section">
+
   <h3>چرا با خیال راحت سفارش بدهید؟</h3>
 
   <div className="services-list">
