@@ -4,6 +4,7 @@ const BASE_PATH = '/goftman-danesh';
 
 const CONTACT_TELEGRAM_ID = 'hoosein3515';
 const CONTACT_WHATSAPP_NUMBER = '989178241874';
+
 const ORDER_MESSAGE = `سلام، برای سفارش تولید محتوا پیام می‌دهم.
 
 موضوع مقاله:
@@ -12,6 +13,7 @@ const ORDER_MESSAGE = `سلام، برای سفارش تولید محتوا پی
 زمان موردنیاز برای تحویل:
 توضیحات و نکات موردنظر:
 `;
+
 const SERVICES = [
   'مقاله اختصاصی',
   'عنوان و تیترهای مناسب',
@@ -98,7 +100,9 @@ export default function ServicesContentPage({ onBack }) {
         ← بازگشت به مقالات
       </button>
 
+      {/* معرفی خدمات */}
       <section className="services-hero">
+
         <span className="services-badge">
           خدمات تولید محتوا
         </span>
@@ -108,18 +112,22 @@ export default function ServicesContentPage({ onBack }) {
         </h2>
 
         <p>
-  یک مقاله آماده انتشار برای سایت شما؛
-  شامل عنوان و تیترهای مناسب، مقدمه، بدنه مقاله،
-  جمع‌بندی، ویرایش و اصول پایه سئو.
-</p>
-<p className="price-note">
-  قبل از شروع کار، جزئیات سفارش و هزینه با شما هماهنگ می‌شود و پس از تأیید شما، نگارش آغاز خواهد شد.
-</p>
-<p>
-  ✨ تولید با کمک هوش مصنوعی + ویرایش و بازبینی انسانی
-</p>
+          یک مقاله آماده انتشار برای سایت شما؛
+          شامل عنوان و تیترهای مناسب، مقدمه، بدنه مقاله،
+          جمع‌بندی، ویرایش و اصول پایه سئو.
+        </p>
+
+        <p className="price-note">
+          قبل از شروع کار، جزئیات سفارش و هزینه با شما هماهنگ می‌شود
+          و پس از تأیید شما، نگارش آغاز خواهد شد.
+        </p>
+
+        <p>
+          ✨ تولید با کمک هوش مصنوعی + ویرایش و بازبینی انسانی
+        </p>
 
         <div className="services-cta">
+
           <button
             className="share-btn share-telegram"
             onClick={goToContact}
@@ -133,38 +141,109 @@ export default function ServicesContentPage({ onBack }) {
           >
             مشاهده نمونه‌کار
           </button>
+
         </div>
+
       </section>
+
+      {/* چرا گفتمان دانش */}
       <section className="services-section">
-  <h3>چرا گفتمان دانش؟</h3>
 
-  <h3>چرا با خیال راحت سفارش بدهید؟</h3>
-
-  <div className="services-list">
-    <div className="service-item">
-      <span className="service-check">✓</span>
-      <span>محتوای اختصاصی متناسب با موضوع شما</span>
-    </div>
-
-    <div className="service-item">
-      <span className="service-check">✓</span>
-      <span>استفاده از هوش مصنوعی همراه با ویرایش انسانی</span>
-    </div>
-
-    <div className="service-item">
-      <span className="service-check">✓</span>
-      <span>هماهنگی درباره موضوع و جزئیات قبل از شروع</span>
-    </div>
-
-    <div className="service-item">
-      <span className="service-check">✓</span>
-      <span>تحویل محتوای آماده انتشار</span>
-    </div>
-  </div>
-</section>section">
-        <h3>چه خدماتی ارائه می‌دهیم؟</h3>
+        <h3>
+          چرا گفتمان دانش؟
+        </h3>
 
         <div className="services-list">
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              محتوای اختصاصی متناسب با موضوع شما
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              استفاده از هوش مصنوعی برای سرعت بیشتر در تولید
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              ویرایش و بازبینی انسانی
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              رعایت اصول پایه سئو
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              تحویل محتوای آماده انتشار
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* چرا با خیال راحت سفارش بدهید */}
+      <section className="services-section">
+
+        <h3>
+          چرا با خیال راحت سفارش بدهید؟
+        </h3>
+
+        <div className="services-list">
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              محتوای اختصاصی متناسب با موضوع شما
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              استفاده از هوش مصنوعی همراه با ویرایش انسانی
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              هماهنگی درباره موضوع و جزئیات قبل از شروع
+            </span>
+          </div>
+
+          <div className="service-item">
+            <span className="service-check">✓</span>
+            <span>
+              تحویل محتوای آماده انتشار
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* خدمات */}
+      <section className="services-section">
+
+        <h3>
+          چه خدماتی ارائه می‌دهیم؟
+        </h3>
+
+        <div className="services-list">
+
           {SERVICES.map((service) => (
             <div
               key={service}
@@ -174,10 +253,14 @@ export default function ServicesContentPage({ onBack }) {
               <span>{service}</span>
             </div>
           ))}
+
         </div>
+
       </section>
 
+      {/* قیمت */}
       <section className="services-price">
+
         <span className="price-label">
           قیمت شروع
         </span>
@@ -194,50 +277,96 @@ export default function ServicesContentPage({ onBack }) {
           شامل عنوان، تیترهای مناسب، مقدمه،
           بدنه مقاله، جمع‌بندی، ویرایش و اصول پایه سئو.
         </p>
+
+        <p className="price-note">
+          قبل از شروع کار، جزئیات سفارش و هزینه با شما هماهنگ می‌شود
+          و پس از تأیید شما، نگارش آغاز خواهد شد.
+        </p>
+
       </section>
+
+      {/* مناسب برای سایت‌ها */}
       <div className="services-note">
-  <strong>🎯 مناسب برای سایت‌ها و کسب‌وکارهای اینترنتی</strong>
-  <p>
-    محتوایی منظم، روان و آماده انتشار دریافت می‌کنید؛
-    بدون نیاز به درگیری با مراحل نگارش و ویرایش.
-  </p>
-</div>
+
+        <strong>
+          🎯 مناسب برای سایت‌ها و کسب‌وکارهای اینترنتی
+        </strong>
+
+        <p>
+          محتوایی منظم، روان و آماده انتشار دریافت می‌کنید؛
+          بدون نیاز به درگیری با مراحل نگارش و ویرایش.
+        </p>
+
+      </div>
+
+      {/* روند انجام سفارش */}
       <section className="services-section">
-        <h3>روند انجام سفارش</h3>
+
+        <h3>
+          روند انجام سفارش
+        </h3>
 
         <div className="steps-list">
+
           {STEPS.map((step, index) => (
             <div
               key={step.title}
               className="step-item"
             >
+
               <div className="step-number">
                 {index + 1}
               </div>
 
               <div className="step-content">
-                <h4>{step.title}</h4>
-                <p>{step.desc}</p>
+
+                <h4>
+                  {step.title}
+                </h4>
+
+                <p>
+                  {step.desc}
+                </p>
+
               </div>
+
             </div>
           ))}
-        </div>
-      </section>
-      <section className="services-section">
-  <h3>📦 تحویل نهایی</h3>
 
-  <p>
-    مقاله نهایی پس از ویرایش و بازبینی،
-    به‌صورت فایل قابل ویرایش و آماده انتشار تحویل داده می‌شود.
-  </p>
-</section>
-        <h3>نمونه‌کارها</h3>
+        </div>
+
+      </section>
+
+      {/* تحویل نهایی */}
+      <section className="services-section">
+
+        <h3>
+          📦 تحویل نهایی
+        </h3>
+
+        <p>
+          مقاله نهایی پس از ویرایش و بازبینی،
+          به‌صورت فایل قابل ویرایش و آماده انتشار تحویل داده می‌شود.
+        </p>
+
+      </section>
+
+      {/* نمونه کارها */}
+      <section
+        id="services-portfolio"
+        className="services-portfolio-section"
+      >
+
+        <h3>
+          نمونه‌کارها
+        </h3>
 
         <p className="section-description">
           بخشی از نمونه‌های محتوایی تولیدشده در گفتمان دانش.
         </p>
 
         <div className="portfolio-grid">
+
           {PORTFOLIO_SAMPLES.map((sample) => (
             <div
               key={sample.title}
@@ -247,40 +376,73 @@ export default function ServicesContentPage({ onBack }) {
                 cursor: sample.id ? 'pointer' : 'default',
               }}
             >
+
               <span className="entry-category">
                 {sample.category}
               </span>
 
-              <h4>{sample.title}</h4>
+              <h4>
+                {sample.title}
+              </h4>
 
               {sample.id && (
                 <span className="portfolio-link">
                   مشاهده مقاله ←
                 </span>
               )}
+
             </div>
           ))}
+
         </div>
+
       </section>
 
+      {/* تماس و ثبت سفارش */}
       <section
         id="services-contact"
         className="services-contact-section"
       >
-        <h3>تماس و ثبت سفارش</h3>
+
+        <h3>
+          تماس و ثبت سفارش
+        </h3>
 
         <p>
           برای ثبت سفارش، موضوع مقاله، تعداد کلمات
           و توضیحات مورد نیازت رو ارسال کن.
         </p>
+
+        {/* اطلاعات مورد نیاز سفارش */}
         <div className="order-info">
-  <h4>برای ثبت سفارش این موارد را ارسال کنید:</h4>
-  <p>📝 موضوع مقاله</p>
-  <p>📏 تعداد کلمات</p>
-  <p>🌐 موضوع یا حوزه سایت</p>
-  <p>⏰ زمان موردنیاز برای تحویل</p>
-  <p>📌 هر توضیح یا نکته‌ای که باید در مقاله رعایت شود</p>
-</div>
+
+          <h4>
+            برای ثبت سفارش این موارد را ارسال کنید:
+          </h4>
+
+          <p>
+            📝 موضوع مقاله
+          </p>
+
+          <p>
+            📏 تعداد کلمات
+          </p>
+
+          <p>
+            🌐 موضوع یا حوزه سایت
+          </p>
+
+          <p>
+            ⏰ زمان موردنیاز برای تحویل
+          </p>
+
+          <p>
+            📌 هر توضیح یا نکته‌ای که باید در مقاله رعایت شود
+          </p>
+
+        </div>
+
+        {/* دکمه‌های تماس */}
         <div className="share-buttons">
 
           <a
@@ -302,8 +464,10 @@ export default function ServicesContentPage({ onBack }) {
           </a>
 
         </div>
+
       </section>
 
+      {/* بازگشت */}
       <button
         className="back-to-list"
         onClick={onBack}
